@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  color: #f8fafc;
+  background:
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(250, 204, 21, 0.14), transparent 24%),
+    linear-gradient(180deg, #030712 0%, #111827 45%, #020617 100%);
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: transparent;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.font-display {
+  font-family: "Baloo 2", "Trebuchet MS", sans-serif;
+}
+
+.starfield {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 40px 70px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 90px 40px, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(1px 1px at 180px 20px, rgba(255, 255, 255, 0.5), transparent);
+  background-size: 220px 120px;
+}
+
+.glass-panel {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.75));
+  backdrop-filter: blur(14px);
+}
+
+.status-ring {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+}
+
+.player-attack {
+  animation: player-attack 0.45s ease-in-out;
+}
+
+.boss-hit {
+  animation: boss-hit 0.45s ease-in-out;
+}
+
+.lightsaber-slash {
+  animation: lightsaber-slash 0.5s ease-out;
+}
+
+.damage-popup {
+  animation: damage-popup 0.9s ease-out forwards;
+}
+
+.victory-glow {
+  animation: victory-glow 1.7s ease-in-out infinite alternate;
+}
+
+@keyframes player-attack {
+  0% {
+    transform: translateX(0) scale(1);
+  }
+  45% {
+    transform: translateX(16px) scale(1.03);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes boss-hit {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(7px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes lightsaber-slash {
+  0% {
+    opacity: 0;
+    transform: rotate(-18deg) scaleX(0.6);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(18deg) scaleX(1.08);
+  }
+}
+
+@keyframes damage-popup {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px) scale(1.05);
+  }
+}
+
+@keyframes victory-glow {
+  0% {
+    box-shadow: 0 0 18px rgba(34, 197, 94, 0.18);
+  }
+  100% {
+    box-shadow:
+      0 0 24px rgba(56, 189, 248, 0.22),
+      0 0 42px rgba(250, 204, 21, 0.14);
+  }
+}
