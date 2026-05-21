@@ -4,10 +4,10 @@ import FinalBoss from "./components/FinalBoss";
 import Home from "./components/Home";
 import Inventory from "./components/Inventory";
 import Layout from "./components/Layout";
+import MissionBoss from "./components/MissionBoss";
 import MissionJourney from "./components/MissionJourney";
 import MissionMap from "./components/MissionMap";
 import PlayerSetup from "./components/PlayerSetup";
-import PowerUpChallenge from "./components/PowerUpChallenge";
 import VictoryScreen from "./components/VictoryScreen";
 import missions from "./data/missions";
 import { canFightBoss, createPlayer, getMissionStatus, hydratePlayer, mergeUnique } from "./utils/gameProgress";
@@ -18,7 +18,7 @@ const SCREENS = {
   SETUP: "setup",
   MAP: "map",
   JOURNEY: "journey",
-  CHALLENGE: "challenge",
+  MISSION_BOSS: "missionBoss",
   INVENTORY: "inventory",
   BOSS: "boss",
   VICTORY: "victory",
@@ -89,7 +89,7 @@ export default function App() {
     setScreen(SCREENS.JOURNEY);
   }
 
-  function handleCompleteChallenge(mission) {
+  function handleCompleteMissionBoss(mission) {
     setPlayer((currentPlayer) => ({
       ...currentPlayer,
       completedMissions: mergeUnique(currentPlayer.completedMissions, mission.id),
@@ -143,16 +143,16 @@ export default function App() {
             mission={activeMission}
             player={player}
             onBack={() => setScreen(SCREENS.MAP)}
-            onStartChallenge={() => setScreen(SCREENS.CHALLENGE)}
+            onStartMissionBoss={() => setScreen(SCREENS.MISSION_BOSS)}
           />
         );
-      case SCREENS.CHALLENGE:
+      case SCREENS.MISSION_BOSS:
         return (
-          <PowerUpChallenge
+          <MissionBoss
             mission={activeMission}
             player={player}
             onBack={() => setScreen(SCREENS.MAP)}
-            onComplete={handleCompleteChallenge}
+            onComplete={handleCompleteMissionBoss}
           />
         );
       case SCREENS.INVENTORY:

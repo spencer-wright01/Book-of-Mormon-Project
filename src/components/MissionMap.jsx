@@ -15,6 +15,9 @@ export default function MissionMap({
   onReset,
 }) {
   const nextMission = missions.find((mission) => missionStatuses[mission.id] === "available");
+  const missionTotal = missions.length;
+  const activeCompletedCount = missions.filter((mission) => player.completedMissions.includes(mission.id)).length;
+  const activeChargedCount = missions.filter((mission) => player.chargedPowerUps.includes(mission.reward)).length;
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-8">
@@ -51,10 +54,10 @@ export default function MissionMap({
             <div className="rounded-[1.75rem] border border-white/10 bg-slate-950/45 p-4">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-white">
-                  Missions Completed: {player.completedMissions.length}/6
+                  Missions Completed: {activeCompletedCount}/{missionTotal}
                 </span>
                 <span className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-white">
-                  Power-Ups Charged: {player.chargedPowerUps.length}/6
+                  Power-Ups Charged: {activeChargedCount}/{missionTotal}
                 </span>
                 <span className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-white">
                   Next Stop: {nextMission ? nextMission.title : "Final Battle"}
@@ -102,7 +105,7 @@ export default function MissionMap({
         </div>
       </div>
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-8 grid gap-5 lg:grid-cols-2">
         {missions.map((mission) => (
           <MissionCard
             key={mission.id}
@@ -154,7 +157,7 @@ export default function MissionMap({
             {bossUnlocked ? "Unlocked and ready" : "Locked until your armor is fully charged"}
           </p>
           <p className="mt-2 text-slate-300">
-            Complete each mission in order and finish every challenge to open the last door.
+            Complete the four journeys and charge each power-up to open the last door.
           </p>
         </div>
       </div>

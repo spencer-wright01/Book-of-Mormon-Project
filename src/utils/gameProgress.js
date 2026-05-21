@@ -66,6 +66,13 @@ export const POWER_UP_DETAILS = {
   },
 };
 
+const ACTIVE_POWER_UPS = [
+  "Gauntlets of Obedience",
+  "Shield of Faith",
+  "Breastplate of Repentance",
+  "Lightsaber of Truth",
+];
+
 export function createPlayer(name, lightsaberColor) {
   const cleanName = name.trim();
 
@@ -95,9 +102,9 @@ export function hydratePlayer(player) {
 }
 
 export function getPowerUpCatalog() {
-  return Object.entries(POWER_UP_DETAILS).map(([name, details]) => ({
+  return ACTIVE_POWER_UPS.map((name) => ({
     name,
-    ...details,
+    ...POWER_UP_DETAILS[name],
   }));
 }
 

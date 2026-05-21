@@ -1,17 +1,9 @@
 import { getPowerUpCatalog } from "../utils/gameProgress";
 import Lightsaber from "./Lightsaber";
 
-const LEARNED_PRINCIPLES = [
-  "Faith and obedience",
-  "Sincere prayer",
-  "Repentance through Jesus Christ",
-  "Faith and revelation",
-  "Courage and covenant loyalty",
-  "Coming unto Christ",
-];
-
 export default function VictoryScreen({ player, onReturnToMap, onOpenInventory, onReplayBattle, onReset }) {
   const catalog = getPowerUpCatalog();
+  const learnedPrinciples = catalog.map((powerUp) => powerUp.principle);
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-8">
@@ -20,7 +12,7 @@ export default function VictoryScreen({ player, onReturnToMap, onOpenInventory, 
         <h2 className="mt-4 font-display text-5xl text-white md:text-6xl">Victory, {player.title}!</h2>
         <p className="mt-4 text-2xl text-slate-100">Darth Korvax has been defeated.</p>
         <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-200">
-          You completed the journey, charged every power-up, and answered doubt with truth from the Book of Mormon.
+          You completed the journeys, charged every power-up, and carried truth from the Book of Mormon into the final battle.
         </p>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[0.75fr_1.25fr]">
@@ -49,7 +41,7 @@ export default function VictoryScreen({ player, onReturnToMap, onOpenInventory, 
           <div className="rounded-[2rem] border border-white/10 bg-slate-950/45 p-6">
             <p className="font-display text-2xl text-white">Principles Learned</p>
             <ul className="mt-4 space-y-3 text-slate-100">
-              {LEARNED_PRINCIPLES.map((principle) => (
+              {learnedPrinciples.map((principle) => (
                 <li key={principle} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                   {principle}
                 </li>

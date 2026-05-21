@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import scriptureFocus from "../data/scriptureFocus";
 import PlayerAvatar from "./PlayerAvatar";
 
-export default function MissionJourney({ mission, player, onBack, onStartChallenge }) {
+export default function MissionJourney({ mission, player, onBack, onStartMissionBoss }) {
   const [sceneIndex, setSceneIndex] = useState(0);
   const [selectedChoices, setSelectedChoices] = useState({});
   const focus = scriptureFocus[mission.scriptureFocusId];
@@ -61,7 +61,7 @@ export default function MissionJourney({ mission, player, onBack, onStartChallen
     }
 
     if (isLastScene) {
-      onStartChallenge();
+      onStartMissionBoss();
       return;
     }
 
@@ -176,7 +176,7 @@ export default function MissionJourney({ mission, player, onBack, onStartChallen
               <p className="font-display text-2xl text-white">Reward Incoming</p>
               <p className="mt-2 leading-7 text-slate-100">
                 Finish this journey to receive <span className="font-semibold text-amber-100">{mission.reward}</span>,
-                then charge it in your challenge.
+                then win it from the mission boss.
               </p>
             </div>
           ) : null}
@@ -219,7 +219,7 @@ export default function MissionJourney({ mission, player, onBack, onStartChallen
               onClick={handleContinue}
               type="button"
             >
-              {isLastScene ? "Begin Power-Up Challenge" : "Continue Journey"}
+              {isLastScene ? "Face Mission Boss" : "Continue Journey"}
             </button>
             <button
               className="rounded-full border border-white/15 px-6 py-3 font-semibold text-white transition hover:bg-white/8 focus:outline-none focus:ring-2 focus:ring-white/30"

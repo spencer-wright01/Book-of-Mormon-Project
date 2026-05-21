@@ -5,6 +5,9 @@ import PlayerAvatar from "./PlayerAvatar";
 export default function Inventory({ player, missions, onBack, onReset }) {
   const catalog = getPowerUpCatalog();
   const lightsaberStyle = LIGHTSABER_STYLES[player.lightsaberColor];
+  const missionTotal = missions.length;
+  const activeCompletedCount = missions.filter((mission) => player.completedMissions.includes(mission.id)).length;
+  const activeChargedCount = missions.filter((mission) => player.chargedPowerUps.includes(mission.reward)).length;
   const completedMissionTitles = missions
     .filter((mission) => player.completedMissions.includes(mission.id))
     .map((mission) => mission.title);
@@ -24,10 +27,10 @@ export default function Inventory({ player, missions, onBack, onReset }) {
                 {player.lightsaberColor} Blade
               </span>
               <span className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-white">
-                Missions: {player.completedMissions.length}/6
+                Missions: {activeCompletedCount}/{missionTotal}
               </span>
               <span className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-white">
-                Charged: {player.chargedPowerUps.length}/6
+                Charged: {activeChargedCount}/{missionTotal}
               </span>
             </div>
           </div>
@@ -103,7 +106,7 @@ export default function Inventory({ player, missions, onBack, onReset }) {
                     <p className="font-display text-2xl text-white">{powerUp.name}</p>
                     <p className="mt-2 leading-7 text-slate-300">{powerUp.shortDescription}</p>
                     <p className="mt-3 text-sm text-slate-400">
-                      {powerUp.principle} • {powerUp.sourceMission}
+                      {powerUp.principle} | {powerUp.sourceMission}
                     </p>
                   </div>
                   <span className="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-white">
@@ -115,7 +118,7 @@ export default function Inventory({ player, missions, onBack, onReset }) {
                     ? `Fully charged and battle-ready for ${player.title}.`
                     : earned
                       ? `Earned by ${player.title}, but still waiting to be fully charged.`
-                      : `Still locked in the mission vault.`}
+                      : "Still locked in the mission vault."}
                 </p>
               </article>
             );

@@ -686,4 +686,18 @@ export const missions = [
   },
 ];
 
-export default missions;
+const activeMissionIds = [
+  "brass-plates-mission",
+  "prayer-in-the-wilderness",
+  "change-of-alma",
+  "light-at-bountiful",
+];
+
+const activeMissions = missions
+  .filter((mission) => activeMissionIds.includes(mission.id))
+  .map((mission, index) => ({
+    ...mission,
+    missionNumber: index + 1,
+  }));
+
+export default activeMissions;

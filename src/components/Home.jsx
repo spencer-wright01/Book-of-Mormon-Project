@@ -14,7 +14,7 @@ function Home({
     <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
       <div className="rounded-[2rem] border border-white/10 bg-slate-900/70 p-6 shadow-xl shadow-slate-950/30 backdrop-blur sm:p-8">
         <p className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-200">
-          A Kid-Friendly Book of Mormon Quest
+          A Book of Mormon Quest
         </p>
         <h2 className="mt-4 max-w-2xl text-3xl font-black tracking-tight text-white sm:text-4xl">
           Complete scripture missions, earn power-ups, and walk the path back
@@ -83,8 +83,8 @@ function Home({
               Begin as a young defender of light with a chosen lightsaber color.
             </li>
             <li className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              Learn from Nephi, Enos, Alma, the brother of Jared, Captain
-              Moroni, and the Savior&apos;s visit at Bountiful.
+              Train with Nephi, Enos, Alma, and the Savior&apos;s visit at
+              Bountiful.
             </li>
             <li className="rounded-2xl border border-white/10 bg-white/5 p-4">
               Charge each power-up so you can stand firm in the final battle

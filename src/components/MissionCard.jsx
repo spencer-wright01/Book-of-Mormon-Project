@@ -33,6 +33,7 @@ function MissionCard({
 }) {
   const resolvedStatus = statusConfig[status] || statusConfig.locked;
   const isLocked = status === "locked";
+  const guideLabel = mission?.character?.includes("Jesus Christ") ? "Savior Guide" : "Jedi Guide";
 
   return (
     <article
@@ -54,34 +55,14 @@ function MissionCard({
         </span>
       </div>
 
-      <dl className="mt-5 space-y-4 text-sm text-slate-200">
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-          <dt className="font-semibold uppercase tracking-wide text-slate-300">
-            Story
-          </dt>
-          <dd className="mt-1 text-base text-white">{mission?.character}</dd>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-          <dt className="font-semibold uppercase tracking-wide text-slate-300">
-            Scripture Reference
-          </dt>
-          <dd className="mt-1 text-base text-white">
-            {mission?.scriptureReference}
-          </dd>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-          <dt className="font-semibold uppercase tracking-wide text-slate-300">
-            Principle
-          </dt>
-          <dd className="mt-1 text-base text-white">{mission?.principle}</dd>
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-          <dt className="font-semibold uppercase tracking-wide text-slate-300">
-            Reward
-          </dt>
-          <dd className="mt-1 text-base text-white">{mission?.reward}</dd>
-        </div>
-      </dl>
+      <div className="mt-5 flex flex-wrap gap-2 text-sm">
+        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-slate-100">
+          {guideLabel}: {mission?.character}
+        </span>
+        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-slate-100">
+          {mission?.scriptureReference}
+        </span>
+      </div>
 
       {mission?.shortSummary ? (
         <p className="mt-5 text-base leading-7 text-slate-200">
@@ -89,14 +70,14 @@ function MissionCard({
         </p>
       ) : null}
 
-      <div className="mt-6 rounded-2xl border border-dashed border-white/15 bg-slate-950/40 p-4">
-        <p className="text-sm font-semibold uppercase tracking-wide text-slate-300">
-          Mission Status
-        </p>
+      <div className="mt-5 rounded-2xl border border-white/10 bg-slate-950/40 p-4">
+        <p className="text-sm uppercase tracking-wide text-slate-400">Core Lesson</p>
+        <p className="mt-2 text-base text-white">{mission?.principle}</p>
+        <p className="mt-4 text-sm uppercase tracking-wide text-slate-400">Reward</p>
+        <p className="mt-2 text-base text-white">{mission?.reward}</p>
+        <p className="mt-4 text-sm uppercase tracking-wide text-slate-400">Mission Status</p>
         <p className="mt-2 text-base text-white">{resolvedStatus.badge}</p>
-        <p className="mt-1 text-sm leading-6 text-slate-300">
-          {resolvedStatus.description}
-        </p>
+        <p className="mt-3 text-sm leading-6 text-slate-300">{resolvedStatus.description}</p>
       </div>
 
       <div className="mt-6 pt-2">
