@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import bossAttacks from "../data/bossAttacks";
 import { getPowerUpCatalog } from "../utils/gameProgress";
 import HealthBar from "./HealthBar";
-import Lightsaber from "./Lightsaber";
+import PlayerAvatar from "./PlayerAvatar";
 
 function getOpeningText(playerTitle) {
   return `${playerTitle}, Darth Korvax rises from the shadows. Choose the right power-up to answer each attack.`;
@@ -127,38 +127,80 @@ export default function FinalBoss({ player, onBack, onVictory }) {
             </button>
           </div>
 
-          <div className="mt-8 grid gap-6 rounded-[2rem] border border-white/10 bg-slate-950/45 p-6 lg:grid-cols-2">
-            <div className="relative rounded-[1.5rem] border border-cyan-200/20 bg-slate-900/70 p-5">
+          <div className="mt-8 grid gap-6 rounded-[2rem] border border-white/10 bg-slate-950/45 p-4 md:p-6 lg:grid-cols-2">
+            <div className="battle-stage-panel relative overflow-hidden rounded-[1.5rem] border border-cyan-200/20 bg-slate-900/70 p-5">
+              <div className="battle-stage-stars pointer-events-none absolute inset-0 opacity-80" />
               <HealthBar color="bg-cyan-300" current={playerHp} label={player.title} max={100} />
               {damagePopup?.side === "player" ? (
-                <span className="damage-popup pointer-events-none absolute right-5 top-18 text-3xl font-black text-rose-300">
+                <span className="damage-popup pointer-events-none absolute right-5 top-[4.5rem] text-3xl font-black text-rose-300">
                   -{damagePopup.amount}
                 </span>
               ) : null}
-              <div className={`mt-8 rounded-[1.5rem] border border-white/10 bg-slate-950/60 p-5 ${isPlayerAttacking ? "player-attack" : ""}`}>
-                <p className="font-display text-2xl text-white">{player.title}</p>
-                <p className="mt-2 text-slate-300">Chosen blade: {player.lightsaberColor}</p>
-                <div className="mt-6">
-                  <Lightsaber color={player.lightsaberColor} glowing />
+              <div
+                className={`relative mt-6 overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-950/55 px-4 py-5 ${isPlayerAttacking ? "player-attack" : ""}`}
+              >
+                <div className="relative z-10 flex items-start justify-between gap-4">
+                  <div>
+                    <p className="font-display text-2xl text-white">{player.title}</p>
+                    <p className="mt-1 text-sm uppercase tracking-[0.24em] text-cyan-100/70">Guardian of the Path</p>
+                  </div>
+                  <p className="max-w-[11rem] text-right text-sm leading-6 text-slate-300">
+                    Your lightsaber shines {player.lightsaberColor.toLowerCase()} as you stand against doubt.
+                  </p>
+                </div>
+                <div className="relative z-10 mt-4 flex min-h-[17rem] items-end justify-center">
+                  <PlayerAvatar className="translate-y-2" player={player} size="lg" variant="battle" />
                 </div>
               </div>
             </div>
 
-            <div className="relative rounded-[1.5rem] border border-amber-200/20 bg-slate-900/70 p-5">
+            <div className="battle-stage-panel relative overflow-hidden rounded-[1.5rem] border border-amber-200/20 bg-slate-900/70 p-5">
+              <div className="battle-stage-stars pointer-events-none absolute inset-0 opacity-65" />
               <HealthBar color="bg-amber-300" current={bossHp} label="Darth Korvax" max={100} />
               {damagePopup?.side === "boss" ? (
-                <span className="damage-popup pointer-events-none absolute left-8 top-18 text-3xl font-black text-amber-200">
+                <span className="damage-popup pointer-events-none absolute left-8 top-[4.5rem] text-3xl font-black text-amber-200">
                   -{damagePopup.amount}
                 </span>
               ) : null}
-              <div className={`relative mt-8 rounded-[1.5rem] border border-white/10 bg-slate-950/60 p-5 ${isBossHit ? "boss-hit" : ""}`}>
-                <p className="font-display text-2xl text-white">Darth Korvax</p>
-                <p className="mt-2 text-slate-300">Keeper of Doubt and shadows</p>
-                <div className="mt-6 h-32 rounded-[1.5rem] bg-gradient-to-br from-amber-200/15 via-rose-400/10 to-slate-950/80" />
+              <div
+                className={`relative mt-6 overflow-hidden rounded-[1.5rem] border border-white/10 bg-slate-950/60 px-4 py-5 ${isBossHit ? "boss-hit" : ""}`}
+              >
+                <div className="relative z-10 flex items-start justify-between gap-4">
+                  <div>
+                    <p className="font-display text-2xl text-white">Darth Korvax</p>
+                    <p className="mt-1 text-sm uppercase tracking-[0.24em] text-amber-100/70">Keeper of Doubt</p>
+                  </div>
+                  <p className="max-w-[11rem] text-right text-sm leading-6 text-slate-300">
+                    A dramatic shadow-lord silhouette, but still safe and kid-friendly.
+                  </p>
+                </div>
+                <div
+                  aria-label="Darth Korvax battle figure"
+                  className="korvax-figure-shell relative z-10 mt-4 flex min-h-[17rem] items-end justify-center"
+                  role="img"
+                >
+                  <div className="korvax-ember-glow absolute bottom-14 h-44 w-36 rounded-full blur-3xl" />
+                  <div className="korvax-figure relative h-72 w-52">
+                    <div className="korvax-floor absolute bottom-2 left-1/2 h-5 w-32 -translate-x-1/2 rounded-full bg-amber-300/12 blur-md" />
+                    <div className="korvax-cape absolute bottom-10 left-1/2 h-40 w-36 -translate-x-1/2 rounded-t-[3.5rem] rounded-b-[2rem]" />
+                    <div className="korvax-shoulders absolute left-1/2 top-[4.7rem] h-20 w-32 -translate-x-1/2 rounded-[2.4rem] border border-white/6 bg-slate-900/85" />
+                    <div className="korvax-head absolute left-1/2 top-8 h-14 w-14 -translate-x-1/2 rounded-full" />
+                    <div className="korvax-hood absolute left-1/2 top-6 h-[4.5rem] w-[4.5rem] -translate-x-1/2 rounded-[2.4rem]" />
+                    <div className="korvax-crown absolute left-1/2 top-5 h-8 w-[5.5rem] -translate-x-1/2" />
+                    <div className="korvax-torso absolute left-1/2 top-[5.45rem] h-28 w-24 -translate-x-1/2 rounded-[2rem]" />
+                    <div className="korvax-arm korvax-arm-left absolute left-[24%] top-[5.8rem] h-24 w-5" />
+                    <div className="korvax-arm korvax-arm-right absolute right-[24%] top-[5.8rem] h-24 w-5" />
+                    <div className="korvax-hand korvax-hand-left absolute bottom-[6.9rem] left-[23%] h-5 w-5 rounded-full" />
+                    <div className="korvax-hand korvax-hand-right absolute bottom-[6.9rem] right-[23%] h-5 w-5 rounded-full" />
+                    <div className="korvax-leg korvax-leg-left absolute bottom-9 left-[39%] h-24 w-6" />
+                    <div className="korvax-leg korvax-leg-right absolute bottom-9 right-[39%] h-24 w-6" />
+                    <div className="korvax-core absolute left-1/2 top-[7.2rem] h-10 w-10 -translate-x-1/2 rounded-full" />
+                  </div>
                 {isPlayerAttacking ? (
                   <div className="lightsaber-slash pointer-events-none absolute inset-y-12 left-6 right-6 rounded-full bg-gradient-to-r from-transparent via-white/90 to-transparent opacity-0" />
                 ) : null}
               </div>
+            </div>
             </div>
           </div>
 
@@ -228,25 +270,25 @@ export default function FinalBoss({ player, onBack, onVictory }) {
           </div>
         </div>
 
-        <aside className="space-y-6">
+        <aside>
           <div className="glass-panel rounded-[2rem] border border-white/10 p-6">
-            <p className="font-display text-sm uppercase tracking-[0.28em] text-cyan-200/80">Battle Plan</p>
+            <p className="font-display text-sm uppercase tracking-[0.28em] text-cyan-200/80">Battle Guide</p>
             <ol className="mt-4 space-y-3 text-slate-200">
-              <li>1. Read Darth Korvax's statement carefully.</li>
-              <li>2. Choose the power-up that matches the doctrine.</li>
-              <li>3. Press SPACEBAR or tap Attack when truth is ready.</li>
+              <li>1. Hear the lie clearly before you respond.</li>
+              <li>2. Match the right power-up to the true doctrine.</li>
+              <li>3. Strike when the truth is ready.</li>
             </ol>
-          </div>
-
-          <div className="glass-panel rounded-[2rem] border border-white/10 p-6">
-            <p className="font-display text-sm uppercase tracking-[0.28em] text-cyan-200/80">Charged Responses</p>
-            <ul className="mt-4 space-y-3 text-slate-200">
+            <p className="mt-6 font-display text-sm uppercase tracking-[0.28em] text-cyan-200/80">Charged Responses</p>
+            <div className="mt-4 flex flex-wrap gap-2">
               {player.chargedPowerUps.map((powerUp) => (
-                <li key={powerUp} className="rounded-2xl border border-white/10 bg-slate-950/45 px-4 py-3">
+                <span
+                  key={powerUp}
+                  className="rounded-full border border-white/10 bg-slate-950/45 px-4 py-2 text-sm text-slate-100"
+                >
                   {powerUp}
-                </li>
+                </span>
               ))}
-            </ul>
+            </div>
           </div>
         </aside>
       </div>

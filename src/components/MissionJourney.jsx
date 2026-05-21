@@ -11,6 +11,34 @@ export default function MissionJourney({ mission, player, onBack, onStartChallen
   const choiceSelection = selectedChoices[currentScene.id];
   const selectedChoice = currentScene.choices?.find((choice) => choice.id === choiceSelection);
   const isLastScene = sceneIndex === mission.scenes.length - 1;
+  const mentorLine = useMemo(() => {
+    const mentorName = mission.character;
+    const baseLine = `${mentorName} guides ${player.title} through this memory-path so the story becomes a lesson you can carry into your own fight against doubt.`;
+
+    const linesByMission = {
+      "The Brass Plates Mission":
+        `${mentorName} walks beside ${player.title} like a steady Jedi guide, teaching that brave obedience begins when you choose to move forward before the whole path is visible.`,
+      "The Prayer in the Wilderness":
+        `${mentorName} becomes a quiet guide for ${player.title}, showing that real strength grows in honest prayer and in opening your whole heart to God.`,
+      "The Change of Alma":
+        `${mentorName} teaches ${player.title} that no one is stuck forever, because Jesus Christ can change hearts and lead them back into the light.`,
+      "The Shining Stones":
+        `${mentorName} mentors ${player.title} through uncertainty, showing that faithful questions and revelation can bring light to dark places.`,
+      "The Title of Liberty":
+        `${mentorName} trains ${player.title} to stand with courage, remember sacred promises, and defend what is good without losing kindness.`,
+      "The Light at Bountiful":
+        `${mentorName} helps ${player.title} slow down and listen, because this mission points directly to Jesus Christ and the invitation to come unto Him.`,
+    };
+
+    return linesByMission[mission.title] ?? baseLine;
+  }, [mission.character, mission.title, player.title]);
+  const mentorPrompt = useMemo(() => {
+    if (currentScene.prompt) {
+      return `${mission.character} asks, "${currentScene.prompt}"`;
+    }
+
+    return `${mission.character} keeps leading ${player.title} deeper into the story.`;
+  }, [currentScene.prompt, mission.character, player.title]);
 
   const canContinue = useMemo(() => {
     if (!currentScene.choices?.length) {
@@ -41,77 +69,76 @@ export default function MissionJourney({ mission, player, onBack, onStartChallen
   }
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-8">
-      <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-        <aside className="glass-panel rounded-[2rem] border border-white/10 p-6">
-          <p className="font-display text-sm uppercase tracking-[0.28em] text-cyan-200/80">
-            Mission Journey
-          </p>
-          <h2 className="mt-3 font-display text-4xl text-white">{mission.title}</h2>
-          <div className="mt-5 rounded-3xl border border-white/10 bg-slate-950/45 p-4">
-            <div className="flex items-center gap-4">
+    <section className="mx-auto max-w-4xl px-4 py-8">
+      <div className="glass-panel overflow-hidden rounded-[2rem] border border-white/10">
+        <div className="border-b border-white/10 px-6 py-6 md:px-8">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="space-y-3">
+              <p className="font-display text-sm uppercase tracking-[0.28em] text-cyan-200/80">
+                Mission Journey
+              </p>
+              <h2 className="font-display text-4xl text-white">{mission.title}</h2>
+              <p className="max-w-2xl text-lg leading-8 text-slate-200">{mentorLine}</p>
+            </div>
+            <div className="flex items-center gap-4 rounded-[1.75rem] border border-white/10 bg-slate-950/45 px-4 py-4">
               <PlayerAvatar player={player} showLightsaber={false} size="sm" />
-              <div>
+              <div className="min-w-0">
                 <p className="font-display text-2xl text-white">{player.title}</p>
-                <p className="mt-1 text-slate-300">
-                  You are the one entering this training mission. {mission.character} is the scripture example guiding your path.
-                </p>
+                <p className="text-sm text-slate-300">Guided by {mission.character}</p>
               </div>
             </div>
           </div>
-          <dl className="mt-5 space-y-4 text-slate-200">
-            <div>
-              <dt className="text-sm uppercase tracking-[0.2em] text-slate-400">Character</dt>
-              <dd className="mt-1 text-lg">{mission.character}</dd>
-            </div>
-            <div>
-              <dt className="text-sm uppercase tracking-[0.2em] text-slate-400">Scripture</dt>
-              <dd className="mt-1 text-lg">{mission.scriptureReference}</dd>
-            </div>
-            <div>
-              <dt className="text-sm uppercase tracking-[0.2em] text-slate-400">Principle</dt>
-              <dd className="mt-1 text-lg">{mission.principle}</dd>
-            </div>
-            <div>
-              <dt className="text-sm uppercase tracking-[0.2em] text-slate-400">Reward</dt>
-              <dd className="mt-1 text-lg">{mission.reward}</dd>
-            </div>
-          </dl>
 
-          <div className="mt-6 rounded-3xl border border-white/10 bg-slate-950/50 p-4">
-            <p className="text-sm uppercase tracking-[0.22em] text-slate-400">
-              Scene {sceneIndex + 1} of {mission.scenes.length}
-            </p>
-            <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-800">
+          <div className="mt-5 flex flex-wrap gap-3 text-sm">
+            <span className="rounded-full border border-white/10 bg-slate-950/45 px-4 py-2 text-slate-100">
+              Scripture: {mission.scriptureReference}
+            </span>
+            <span className="rounded-full border border-white/10 bg-slate-950/45 px-4 py-2 text-slate-100">
+              Principle: {mission.principle}
+            </span>
+            <span className="rounded-full border border-white/10 bg-slate-950/45 px-4 py-2 text-slate-100">
+              Reward: {mission.reward}
+            </span>
+          </div>
+
+          <div className="mt-5">
+            <div className="flex items-center justify-between text-sm uppercase tracking-[0.22em] text-slate-400">
+              <span>
+                Scene {sceneIndex + 1} of {mission.scenes.length}
+              </span>
+              <span>{Math.round(((sceneIndex + 1) / mission.scenes.length) * 100)}% complete</span>
+            </div>
+            <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-800">
               <div
                 className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-amber-200 transition-all duration-300"
                 style={{ width: `${((sceneIndex + 1) / mission.scenes.length) * 100}%` }}
               />
             </div>
           </div>
+        </div>
 
-          {focus ? (
-            <div className="mt-6 rounded-3xl border border-cyan-200/15 bg-cyan-300/10 p-4">
-              <p className="text-sm uppercase tracking-[0.22em] text-cyan-200/80">Scripture Focus</p>
-              <p className="mt-2 font-display text-2xl text-white">{focus.title}</p>
-              <p className="mt-2 text-sm text-cyan-100/80">{focus.reference}</p>
-              <p className="mt-3 leading-7 text-slate-200">{focus.summary}</p>
-            </div>
-          ) : null}
-        </aside>
+        <div className="px-6 py-6 md:px-8 md:py-8">
+          <div className="rounded-[1.75rem] border border-cyan-200/15 bg-cyan-300/10 px-5 py-4">
+            <p className="text-sm uppercase tracking-[0.22em] text-cyan-100/80">Guide Transmission</p>
+            <p className="mt-2 text-base leading-7 text-cyan-50">{mentorPrompt}</p>
+          </div>
 
-        <div className="glass-panel rounded-[2rem] border border-white/10 p-6 md:p-8">
-          <p className="font-display text-sm uppercase tracking-[0.3em] text-amber-200/80">
-            Story Scene
-          </p>
-          <p className="mt-4 rounded-2xl border border-cyan-200/15 bg-cyan-300/10 px-4 py-3 text-base leading-7 text-cyan-50">
-            {player.title} steps into a scripture memory chamber and learns what this story can teach for the final battle ahead.
-          </p>
-          <p className="mt-5 text-xl leading-9 text-slate-100">{currentScene.narration}</p>
+          <div className="mt-6 space-y-5">
+            <p className="text-xl leading-9 text-slate-100">{currentScene.narration}</p>
+
+            {focus ? (
+              <div className="rounded-[1.5rem] border border-white/10 bg-slate-950/45 px-5 py-4">
+                <p className="text-sm uppercase tracking-[0.22em] text-slate-400">Scripture Focus</p>
+                <p className="mt-2 font-display text-2xl text-white">{focus.title}</p>
+                <p className="mt-1 text-sm text-cyan-100/80">{focus.reference}</p>
+                <p className="mt-3 leading-7 text-slate-200">{focus.summary}</p>
+              </div>
+            ) : null}
+          </div>
 
           {currentScene.prompt ? (
             <div className="mt-8">
-              <h3 className="font-display text-2xl text-white">{currentScene.prompt}</h3>
+              <h3 className="font-display text-2xl text-white">Choose Your Response</h3>
               <div className="mt-4 space-y-3">
                 {currentScene.choices.map((choice) => {
                   const isSelected = choice.id === choiceSelection;
@@ -134,7 +161,7 @@ export default function MissionJourney({ mission, player, onBack, onStartChallen
               </div>
 
               {selectedChoice ? (
-                <div className="mt-5 rounded-3xl border border-emerald-200/20 bg-emerald-300/10 p-4 text-slate-100">
+                <div className="mt-5 rounded-[1.5rem] border border-emerald-200/20 bg-emerald-300/10 p-4 text-slate-100">
                   <p className="font-semibold text-emerald-100">
                     {selectedChoice.id === currentScene.correctChoiceId ? "Faithful choice." : "Keep learning."}
                   </p>
@@ -154,26 +181,32 @@ export default function MissionJourney({ mission, player, onBack, onStartChallen
             </div>
           ) : null}
 
-          <div className="mt-6 rounded-[1.75rem] border border-white/10 bg-slate-950/45 p-5">
-            <p className="text-sm uppercase tracking-[0.22em] text-slate-400">Reflection Question</p>
-            <p className="mt-3 text-lg leading-8 text-slate-100">{mission.reflectionQuestion}</p>
-          </div>
-
           {focus ? (
-            <div className="mt-6 rounded-[1.75rem] border border-amber-200/20 bg-amber-300/10 p-5">
-              <p className="text-sm uppercase tracking-[0.22em] text-amber-100/80">Why This Scripture Matters</p>
-              <ul className="mt-3 space-y-3 text-slate-100">
-                {focus.teachingPoints.map((point) => (
-                  <li key={point} className="rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3">
-                    {point}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 text-sm leading-6 text-slate-300">
-                Current content mode: local curated summary. Later, you can replace this with an approved verse excerpt using the query hint <span className="font-semibold text-slate-100">{focus.mcpQueryHint}</span>.
-              </p>
+            <div className="mt-6 grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="rounded-[1.75rem] border border-amber-200/20 bg-amber-300/10 p-5">
+                <p className="text-sm uppercase tracking-[0.22em] text-amber-100/80">Why This Scripture Matters</p>
+                <ul className="mt-3 space-y-3 text-slate-100">
+                  {focus.teachingPoints.map((point) => (
+                    <li key={point} className="rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3">
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-[1.75rem] border border-white/10 bg-slate-950/45 p-5">
+                <p className="text-sm uppercase tracking-[0.22em] text-slate-400">Reflection Question</p>
+                <p className="mt-3 text-lg leading-8 text-slate-100">{mission.reflectionQuestion}</p>
+                <p className="mt-4 text-sm leading-6 text-slate-300">
+                  Current content mode: local curated summary. Later, you can replace this with an approved verse excerpt using the query hint <span className="font-semibold text-slate-100">{focus.mcpQueryHint}</span>.
+                </p>
+              </div>
             </div>
-          ) : null}
+          ) : (
+            <div className="mt-6 rounded-[1.75rem] border border-white/10 bg-slate-950/45 p-5">
+              <p className="text-sm uppercase tracking-[0.22em] text-slate-400">Reflection Question</p>
+              <p className="mt-3 text-lg leading-8 text-slate-100">{mission.reflectionQuestion}</p>
+            </div>
+          )}
 
           <div className="mt-8 flex flex-wrap gap-3">
             <button

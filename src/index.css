@@ -52,8 +52,175 @@ textarea {
   backdrop-filter: blur(14px);
 }
 
+.battle-stage-panel {
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.05), transparent 36%),
+    linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.88));
+}
+
+.battle-stage-stars {
+  background-image:
+    radial-gradient(2px 2px at 18% 24%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 64% 18%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.5px 1.5px at 79% 36%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 30% 62%, rgba(255, 255, 255, 0.42), transparent),
+    radial-gradient(2px 2px at 60% 72%, rgba(255, 255, 255, 0.34), transparent);
+}
+
 .status-ring {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+}
+
+.player-battle-shell,
+.korvax-figure {
+  filter: drop-shadow(0 24px 30px rgba(2, 6, 23, 0.42));
+}
+
+.player-battle-glow,
+.korvax-ember-glow {
+  animation: aura-pulse 2.2s ease-in-out infinite alternate;
+}
+
+.player-battle-head {
+  background: linear-gradient(180deg, rgba(226, 232, 240, 0.92), rgba(148, 163, 184, 0.82));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.player-battle-torso,
+.player-battle-arm,
+.player-battle-leg {
+  background: linear-gradient(180deg, rgba(71, 85, 105, 0.95), rgba(15, 23, 42, 0.94));
+  border: 1px solid rgba(186, 230, 253, 0.12);
+}
+
+.player-battle-arm,
+.player-battle-leg {
+  border-radius: 9999px;
+}
+
+.player-battle-arm-left {
+  transform: rotate(18deg);
+  transform-origin: top center;
+}
+
+.player-battle-arm-right {
+  transform: rotate(-12deg);
+  transform-origin: top center;
+}
+
+.player-battle-leg-left {
+  transform: rotate(7deg);
+  transform-origin: top center;
+}
+
+.player-battle-leg-right {
+  transform: rotate(-7deg);
+  transform-origin: top center;
+}
+
+.player-battle-emblem {
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-family: "Baloo 2", "Trebuchet MS", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: rgba(224, 242, 254, 0.94);
+}
+
+.korvax-ember-glow {
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, rgba(251, 113, 133, 0.16) 46%, transparent 72%);
+}
+
+.korvax-head {
+  background: linear-gradient(180deg, rgba(51, 65, 85, 0.98), rgba(15, 23, 42, 0.98));
+  border: 1px solid rgba(251, 191, 36, 0.12);
+}
+
+.korvax-hood {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.96), rgba(2, 6, 23, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.korvax-crown::before,
+.korvax-crown::after,
+.korvax-crown {
+  position: absolute;
+  inset: 0;
+}
+
+.korvax-crown::before,
+.korvax-crown::after {
+  content: "";
+  background: linear-gradient(180deg, rgba(251, 191, 36, 0.85), rgba(244, 114, 182, 0.2));
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.korvax-crown::before {
+  left: 0.55rem;
+  right: auto;
+  width: 1.2rem;
+}
+
+.korvax-crown::after {
+  right: 0.55rem;
+  left: auto;
+  width: 1.2rem;
+}
+
+.korvax-crown {
+  background: linear-gradient(180deg, rgba(251, 191, 36, 0.8), rgba(253, 230, 138, 0.12));
+  clip-path: polygon(50% 0, 64% 38%, 100% 100%, 0 100%, 36% 38%);
+}
+
+.korvax-cape {
+  background:
+    linear-gradient(180deg, rgba(100, 116, 139, 0.15), transparent 28%),
+    linear-gradient(180deg, rgba(30, 41, 59, 0.96), rgba(2, 6, 23, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.korvax-torso,
+.korvax-arm,
+.korvax-leg,
+.korvax-hand {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.98), rgba(2, 6, 23, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.korvax-arm,
+.korvax-leg {
+  border-radius: 9999px;
+}
+
+.korvax-arm-left {
+  transform: rotate(15deg);
+  transform-origin: top center;
+}
+
+.korvax-arm-right {
+  transform: rotate(-15deg);
+  transform-origin: top center;
+}
+
+.korvax-leg-left {
+  transform: rotate(6deg);
+  transform-origin: top center;
+}
+
+.korvax-leg-right {
+  transform: rotate(-6deg);
+  transform-origin: top center;
+}
+
+.korvax-core {
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.95) 0%, rgba(251, 146, 60, 0.72) 36%, rgba(244, 63, 94, 0.18) 68%, transparent 76%);
+  box-shadow:
+    0 0 18px rgba(251, 191, 36, 0.32),
+    0 0 36px rgba(244, 63, 94, 0.16);
 }
 
 .player-attack {
@@ -142,5 +309,16 @@ textarea {
     box-shadow:
       0 0 24px rgba(56, 189, 248, 0.22),
       0 0 42px rgba(250, 204, 21, 0.14);
+  }
+}
+
+@keyframes aura-pulse {
+  0% {
+    opacity: 0.72;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.04);
   }
 }
