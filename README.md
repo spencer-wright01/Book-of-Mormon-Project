@@ -105,6 +105,27 @@ Typical deployment flow:
 6. Confirm the output directory is `dist`.
 7. Save and deploy.
 
+## GitHub Pages Deployment
+
+This repository also includes a GitHub Actions workflow for GitHub Pages:
+
+- Workflow file: `.github/workflows/deploy-pages.yml`
+- Build command: `npm run build`
+- Published artifact: `dist`
+- Pages URL: `https://spencer-wright01.github.io/Book-of-Mormon-Project/`
+
+The Vite config uses a conditional base path:
+
+- Normal local and Amplify builds use `/`
+- GitHub Pages builds use `/Book-of-Mormon-Project/`
+
+To finish setup in GitHub:
+
+1. Open the repository on GitHub.
+2. Go to `Settings` -> `Pages`.
+3. Under `Build and deployment`, set `Source` to `GitHub Actions`.
+4. Push to `main` or run the `Deploy to GitHub Pages` workflow manually.
+
 ## Course Project Connection
 
 The game is designed to support four Book of Mormon course outcomes:

@@ -198,6 +198,17 @@ dist
 
 Production runtime is static only. The import script is for development authoring only.
 
+### GitHub Pages
+
+GitHub Pages is supported with:
+
+- `.github/workflows/deploy-pages.yml`
+- GitHub Pages source set to `GitHub Actions`
+- published artifact: `dist`
+- expected URL: `https://spencer-wright01.github.io/Book-of-Mormon-Project/`
+
+`vite.config.js` uses `GITHUB_PAGES=true` to switch the Vite base path to `/Book-of-Mormon-Project/` only for the Pages workflow. Local development and Amplify builds still use `/`.
+
 ## Content Import Workflow
 
 ```bash
